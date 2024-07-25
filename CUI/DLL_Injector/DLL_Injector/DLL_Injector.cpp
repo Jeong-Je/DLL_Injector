@@ -52,6 +52,7 @@ BOOL Inject(DWORD PID, LPCTSTR DllPath) {
     // DLL 경로 문자열 길이만큼 공간 확보
     SIZE_T dwBufSize = (_tcslen(DllPath) + 1) * sizeof(TCHAR);
     pRemoteBuf = VirtualAllocEx(hProcess, NULL, dwBufSize, MEM_COMMIT, PAGE_READWRITE);
+    WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)DllPath, dwBufSize, NULL);
 
     // 쓰여진 DLL을 프로세스에서 로드하기
     hMod = GetModuleHandle(L"kernel32.dll");
