@@ -38,7 +38,7 @@ namespace Wpf_DLL_Injector
             }
         }
 
-        private void InjectButton_Click(object sender, RoutedEventArgs e)
+        private async void InjectButton_Click(object sender, RoutedEventArgs e)
         {
             string targetExePath = TargetExeTextBox.Text;
             string hookDllPath = HookDllTextBox.Text;
@@ -50,14 +50,18 @@ namespace Wpf_DLL_Injector
             }
             else
             {
+                injectButton.IsEnabled = false;
+                injectButton.Content = $"Waiting {targetExePath}...";
                 try
                 {
                     Injector injector = new Injector();
-                    bool result = injector.Inject(targetExePath, hookDllPath);
+                    bool result = await Task.Run(() => injector.Inject(targetExePath, hookDllPath));
 
                     if (result)
                     {
                         MessageBox.Show("DLL 인젝션 성공", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        injectButton.IsEnabled = true;
+                        injectButton.Content = $"DLL 주입하기 💉";
                     }
                     else
                     {

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="DLL Injector" Height="151" Width="363"
         ResizeMode="NoResize"
-        Background="LightBlue">
+        Background="#72C0F9">
     <Grid Margin="0,0,10,0">
         <Grid Margin="10,10,0,0">
             <Label Content="Target EXE:" HorizontalAlignment="Left" Margin="20,5,0,0" VerticalAlignment="Top"/>
@@ -17,7 +17,7 @@
             <TextBox x:Name="HookDllTextBox" HorizontalAlignment="Left" Margin="91,32,0,0" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
             <Button Content="Browse..." HorizontalAlignment="Left" Margin="234,32,0,0" VerticalAlignment="Top" Width="80" Click="BrowseButton_Click"/>
 
-            <Button Content="Inject DLL" HorizontalAlignment="Left" Margin="20,58,0,0" VerticalAlignment="Top" Width="294" Click="InjectButton_Click"/>
+            <Button x:Name="injectButton" Content="DLL 주입하기 💉" HorizontalAlignment="Left" Margin="20,58,0,0" VerticalAlignment="Top" Width="294" Click="InjectButton_Click"/>
         </Grid>
     </Grid>
 </Window>

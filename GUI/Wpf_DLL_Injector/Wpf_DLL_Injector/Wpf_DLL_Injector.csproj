@@ -5,7 +5,12 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>free-icon-syringe-4465220.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="free-icon-syringe-4465220.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="DllInjectorLib">
