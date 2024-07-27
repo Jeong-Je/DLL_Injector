@@ -15,5 +15,8 @@ namespace DllInjectorLib {
     private:
         bool Inject(DWORD PID, LPCWSTR DllPath);
         DWORD GetPIDByName(LPCWSTR processName);
+
+        // 자식 프로세스에 DLL을 주입하는 메서드
+        void InjectDLLIntoChildProcesses(DWORD parentPID, LPCWSTR dllPath);
     };
 }
