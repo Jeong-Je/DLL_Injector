@@ -14,14 +14,7 @@ namespace DllInjectorLib {
             System::Threading::Thread::Sleep(1000); // 1초 대기 후 다시 시도
         }
 
-        // 부모 프로세스에 DLL 주입
-        if (!Inject(dwPID, wDllPath))
-            return false;
-
-        // 자식 프로세스에 DLL 주입
-        //InjectDLLIntoChildProcesses(dwPID, wDllPath);
-
-        return true;
+        return Inject(dwPID, wDllPath);
     }
 
     bool Injector::Inject(DWORD PID, LPCWSTR DllPath)
@@ -76,35 +69,6 @@ namespace DllInjectorLib {
         CloseHandle(hProcess);
 
         return true;
-    }
-
-    // 자식 프로세스에 DLL을 주입하는 함수
-    void Injector::InjectDLLIntoChildProcesses(DWORD parentPID, LPCWSTR dllPath)
-    {
-        HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-        if (hSnapshot == INVALID_HANDLE_VALUE)
-            return;
-
-        PROCESSENTRY32 pe;
-        pe.dwSize = sizeof(PROCESSENTRY32);
-
-        if (Process32First(hSnapshot, &pe))
-        {
-            do
-            {
-                if (pe.th32ParentProcessID == parentPID)
-                {
-                    // 자식 프로세스에 DLL 주입
-                    if (Inject(pe.th32ProcessID, dllPath))
-                    {
-                        // 자식 프로세스가 자식 프로세스를 가질 수 있으므로 재귀 호출
-                        InjectDLLIntoChildProcesses(pe.th32ProcessID, dllPath);
-                    }
-                }
-            } while (Process32Next(hSnapshot, &pe));
-        }
-
-        CloseHandle(hSnapshot);
     }
 
     DWORD Injector::GetPIDByName(LPCWSTR processName)
